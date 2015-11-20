@@ -27,64 +27,12 @@ class Student < Database::Model
 
   attr_reader :attributes, :old_attributes
 
-  # e.g., Student.new(:id => 1, :first_name => 'Steve', :last_name => 'Rogers', ...)
-=begin
-=begin
-  def initialize(attributes = {})
-    attributes.symbolize_keys!
-
-    raise_error_if_invalid_attribute!(attributes.keys)
-
-    # This defines the value even if it's not present in attributes
-    @attributes = {}
-
-    Student.attribute_names.each do |name|
-      @attributes[name] = attributes[name]
-    end
-
-    @old_attributes = @attributes.dup
-  end=end
-=end
-
-
-=begin
- def save
-    if new_record?
-      results = insert!
-    else
-      results = update!
-    end
-
-    # When we save, remove changes between new and old attributes
-    @old_attributes = @attributes.dup
-
-    results
-  end
-=end
-
 
   # We say a record is "new" if it doesn't have a defined primary key in its
   # attributes
   def new_record?
     self[:id].nil?
   end
-
-
-=begin
-  # e.g., student['first_name'] #=> 'Steve'
-  def [](attribute)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute]
-  end
-
-  # e.g., student['first_name'] = 'Steve'
-  def []=(attribute, value)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute] = value
-  end
-=end
 
 
   def cohort

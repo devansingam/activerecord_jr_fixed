@@ -28,39 +28,6 @@ class Cohort < Database::Model
 
   # e.g., Cohort.new(:id => 1, :name => 'Alpha', :created_at => '2012-12-01 05:54:30')
 
-=begin
-def initialize(attributes = {})
-    attributes.symbolize_keys!
-    raise_error_if_invalid_attribute!(attributes.keys)
-
-    @attributes = {}
-
-    Cohort.attribute_names.each do |name|
-      @attributes[name] = attributes[name]
-    end
-
-    @old_attributes = @attributes.dup
-    end
-
-=end
-
-
-
-=begin
-  def [](attribute)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute]
-  end
-
-  def []=(attribute, value)
-    raise_error_if_invalid_attribute!(attribute)
-
-    @attributes[attribute] = value
-  end
-=end
-
-
   def students
     Student.where('cohort_id = ?', self[:id])
   end
@@ -76,22 +43,6 @@ def initialize(attributes = {})
   def new_record?
     self[:id].nil?
   end
-
-
-=begin
-  def save
-    if new_record?
-      results = insert!
-    else
-      results = update!
-    end
-
-    # When we save, remove changes between new and old attributes
-    @old_attributes = @attributes.dup
-
-    results
-  end
-
 
 
   private
